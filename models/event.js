@@ -18,8 +18,11 @@ const eventSchema = new Schema({
     price: {
         type: Number,
         required: true
+    },
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
-
 });
 
-module.exports = mongoose.model('Event',eventSchema);
+module.exports = mongoose.model('Event', eventSchema);
