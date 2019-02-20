@@ -40,6 +40,7 @@ const getUser = async userID => {
         return {
             ...user._doc,
             _id: user.id,
+            password:null,
             createdEvents: getEvents.bind(this, user._doc.createdEvents)
         };
     }
@@ -146,5 +147,21 @@ module.exports = {
             createdAt: new Date(result._doc.createdAt).toISOString(),
             updatedAt: new Date(result._doc.updatedAt).toISOString()
         };
+    },
+    cancelBooking: async args => {
+        try {
+            const booking = await Booking.findById(args.bookingId).populate('event');
+            const event = {
+                ...booking.event._doc,
+            creator:getUser.bind(this,booking.event._doc.creator)};
+
+          
+            //    console.log(booking.event);
+            // await Booking.deleteOne({ _id: args.bookingId });
+            return event;
+        }
+        catch (err) {
+            throw err;
+        }
     }
 };
