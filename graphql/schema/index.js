@@ -7,7 +7,7 @@ module.exports = buildSchema(`
         event:Event!
         user :User!
         createdAt:String!
-        UpdatedAt:String!
+        updatedAt:String!
     }
 
     type User {
@@ -15,6 +15,12 @@ module.exports = buildSchema(`
         email:String!
         password:String
         createdEvents:[Event!]
+    }
+
+    type AuthData {
+        userId : ID!
+        token : String!
+        tokenExpiration : Int!
     }
 
     type Event {
@@ -41,6 +47,7 @@ module.exports = buildSchema(`
     type RootQuery {
         events : [Event!]!
         bookings : [Booking!]!
+        login(email:String!,password:String!) : AuthData!
     }
 
     
